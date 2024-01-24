@@ -25,7 +25,8 @@ public class Campaign {
 
     private String description;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 
     @ManyToOne
