@@ -1,5 +1,6 @@
 package com.virtuocode.adsmanagementback.services.PartnerService;
 
+import com.virtuocode.adsmanagementback.Exceptions.EntityFailedToDeleteException;
 import com.virtuocode.adsmanagementback.Exceptions.EntityFailedToSaveException;
 import com.virtuocode.adsmanagementback.Exceptions.EntityNotFoundException;
 import com.virtuocode.adsmanagementback.dto.PartnerDto;
@@ -57,8 +58,14 @@ public class PartnerService implements IPartnerService {
     @Override
     public PartnerDto deletePartner(Long partnerId) {
         Partner partner = this.partnerRepo.findById(partnerId).orElseThrow(() -> new EntityNotFoundException(partnerId));
-        this.partnerRepo.delete(partner);
-        return mapToDto(partner);
+        try {
+            this.partnerRepo.delete(partner);
+            return mapToDto(partner);
+
+        } catch (Exception e) {
+            throw new EntityFailedToDeleteException(partner);
+        }
+
     }
 
 
