@@ -44,4 +44,12 @@ public class PartnerController {
     }
 
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<PartnerDto> deletePartner(@PathVariable Long id){
+        PartnerDto partner = partnerService.deletePartner(id);
+        return  new ResponseEntity<>(partner,HttpStatus.OK);
+
+    }
+
+
 }

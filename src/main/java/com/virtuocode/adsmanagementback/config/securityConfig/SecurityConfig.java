@@ -1,4 +1,4 @@
-package com.virtuocode.adsmanagementback.securityConfig;
+package com.virtuocode.adsmanagementback.config.securityConfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

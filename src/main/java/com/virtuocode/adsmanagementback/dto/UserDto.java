@@ -1,5 +1,6 @@
 package com.virtuocode.adsmanagementback.dto;
 
+import com.virtuocode.adsmanagementback.shared.roles.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,5 +19,5 @@ public class UserDto {
     private String password;
 
 
-    private String role;
+    private UserRole role;
 }

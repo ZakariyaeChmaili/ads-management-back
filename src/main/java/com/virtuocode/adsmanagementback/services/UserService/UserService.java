@@ -29,12 +29,12 @@ public class UserService implements IUserService {
 
     public UserDto addUser(User user) {
         try {
-            user.setRole(UserRole.USER.getValue());
+            user.setRole(UserRole.USER);
             User u = this.userRepo.save(user);
             UserDto userDto = UserDto.builder()
                     .id(u.getId())
                     .username(u.getUsername())
-                    .role(UserRole.USER.getValue())
+                    .role(UserRole.USER)
                     .build();
             return userDto;
 
