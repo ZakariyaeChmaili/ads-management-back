@@ -3,6 +3,7 @@ package com.virtuocode.adsmanagementback.controllers;
 import com.virtuocode.adsmanagementback.dto.AdDto;
 import com.virtuocode.adsmanagementback.entities.Ad;
 import com.virtuocode.adsmanagementback.services.AdSerivce.IAdService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class AdController {
     }
 
     @PostMapping
-    public ResponseEntity<AdDto> addAd(@RequestBody Ad ad) {
+    public ResponseEntity<AdDto> addAd(@Valid @RequestBody Ad ad) {
         AdDto newAd = adService.addAd(ad);
         return new ResponseEntity<>(newAd, HttpStatus.CREATED);
     }
@@ -36,7 +37,7 @@ public class AdController {
     }
 
     @PutMapping
-    public ResponseEntity<AdDto> updateAd(@RequestBody Ad ad) {
+    public ResponseEntity<AdDto> updateAd(@Valid @RequestBody Ad ad) {
         AdDto updatedAd = adService.updateAd(ad);
         return new ResponseEntity<>(updatedAd, HttpStatus.OK);
     }

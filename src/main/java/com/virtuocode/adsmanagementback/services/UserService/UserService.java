@@ -62,7 +62,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDto updateUser(UserDto user) {
+    public UserDto updateUser(User user) {
         try {
             User userToUpdate = this.userRepo.findById(user.getId())
                     .orElseThrow(() -> new EntityNotFoundException(user.getId()));

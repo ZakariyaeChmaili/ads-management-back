@@ -13,7 +13,7 @@ public interface IUserService {
 
      UserDto deleteUser(Long userId);
 
-     UserDto updateUser(UserDto user);
+     UserDto updateUser(User user);
 
      UserDto findUser(Long userId);
 }

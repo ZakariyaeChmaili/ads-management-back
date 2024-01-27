@@ -3,6 +3,7 @@ package com.virtuocode.adsmanagementback.controllers;
 import com.virtuocode.adsmanagementback.dto.CampaignDto;
 import com.virtuocode.adsmanagementback.entities.Campaign;
 import com.virtuocode.adsmanagementback.services.CampaignService.CampaignService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class CampaignController {
     }
 
     @PostMapping
-    public ResponseEntity<CampaignDto> addCampaign(@RequestBody Campaign campaign) {
+    public ResponseEntity<CampaignDto> addCampaign(@Valid @RequestBody Campaign campaign) {
         CampaignDto newCampaign = campaignService.addCampaign(campaign);
         return new ResponseEntity<>(newCampaign, HttpStatus.CREATED);
     }
@@ -53,7 +54,7 @@ public class CampaignController {
     }
 
     @PutMapping
-    public ResponseEntity<CampaignDto> updateCampaign(@RequestBody Campaign campaign) {
+    public ResponseEntity<CampaignDto> updateCampaign(@Valid @RequestBody Campaign campaign) {
         CampaignDto updatedCampaign = campaignService.updateCampaign(campaign);
         return new ResponseEntity<>(updatedCampaign, HttpStatus.OK);
     }

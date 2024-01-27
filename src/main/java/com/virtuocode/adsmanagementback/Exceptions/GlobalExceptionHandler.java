@@ -34,6 +34,15 @@ public class GlobalExceptionHandler {
         return res;
     }
 
+    @ExceptionHandler(EntityFailedToDeleteException.class)
+    @ResponseStatus(code=HttpStatus.BAD_REQUEST)
+    public Map<String,Object> handleEntityFailedToDeleteException(EntityFailedToDeleteException e){
+        Map<String, Object> res = new LinkedHashMap<>();
+        res.put("timestamp", LocalDateTime.now());
+        res.put("message", e.getMessage());
+        res.put("entity",e.getEntity());
+        return res;
+    }
 
 
  }

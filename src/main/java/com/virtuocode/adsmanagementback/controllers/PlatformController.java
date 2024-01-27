@@ -3,6 +3,7 @@ package com.virtuocode.adsmanagementback.controllers;
 import com.virtuocode.adsmanagementback.dto.PlatformDto;
 import com.virtuocode.adsmanagementback.entities.Platform;
 import com.virtuocode.adsmanagementback.services.PlatformService.IPlatformService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class PlatformController {
         this.platformService = platformService;
     }
     @PostMapping
-    public ResponseEntity<PlatformDto> addPlatform(@RequestBody Platform platform) {
+    public ResponseEntity<PlatformDto> addPlatform(@Valid  @RequestBody Platform platform) {
         PlatformDto newPlatform = platformService.addPlatform(platform);
         return new ResponseEntity<>(newPlatform, HttpStatus.CREATED);
     }
@@ -37,7 +38,7 @@ public class PlatformController {
     }
 
     @PutMapping
-    public ResponseEntity<PlatformDto> updatePlatform(@RequestBody Platform platform) {
+    public ResponseEntity<PlatformDto> updatePlatform(@Valid @RequestBody Platform platform) {
         PlatformDto updatedPlatform = platformService.updatePlatform(platform);
         return new ResponseEntity<>(updatedPlatform, HttpStatus.OK);
     }
