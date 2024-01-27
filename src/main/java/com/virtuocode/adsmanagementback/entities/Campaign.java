@@ -3,6 +3,7 @@ package com.virtuocode.adsmanagementback.entities;
 import com.virtuocode.adsmanagementback.shared.status.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class Campaign {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotEmpty
+    @NotNull
     private String title;
 
     private String description;
@@ -30,7 +31,7 @@ public class Campaign {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @NotEmpty
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "partner_id")
     private Partner partner;

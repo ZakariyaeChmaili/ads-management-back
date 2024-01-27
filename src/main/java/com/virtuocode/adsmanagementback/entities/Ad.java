@@ -3,6 +3,7 @@ package com.virtuocode.adsmanagementback.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity(name = "ad_table")
@@ -17,13 +18,13 @@ public class Ad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotNull
     private String title;
     private String description;
 
     private String imageUrl;
 
-    @NotEmpty
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "compaign_id")
     private Campaign campaign;
