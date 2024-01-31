@@ -21,21 +21,11 @@ public class CampaignService implements ICampaignService {
         this.campaignRepo = campaignRepo;
     }
 
-    private CampaignDto mapToDto(Campaign campaign) {
-        return CampaignDto.builder()
-                .id(campaign.getId())
-                .title(campaign.getTitle())
-                .description(campaign.getDescription())
-                .status(campaign.getStatus())
-                .partner(campaign.getPartner())
-                .build();
-    }
-
     @Override
     public List<CampaignDto> getCampaigns() {
             List<Campaign> campaigns = campaignRepo.findAll();
             return campaigns.stream()
-                    .map(this::mapToDto)
+                    .map(Campaign::toDto)
                     .collect(Collectors.toList());
     }
 
@@ -44,7 +34,7 @@ public class CampaignService implements ICampaignService {
         try {
             Campaign campaign = campaignRepo.findById(campaignId)
                     .orElseThrow(() -> new EntityNotFoundException(campaignId));
-            return mapToDto(campaign);
+            return campaign.toDto();
         } catch (Exception e) {
             throw new EntityNotFoundException(campaignId);
         }
@@ -54,7 +44,7 @@ public class CampaignService implements ICampaignService {
     public CampaignDto addCampaign(Campaign campaign) {
         try {
             Campaign savedCampaign = campaignRepo.save(campaign);
-            return mapToDto(savedCampaign);
+            return savedCampaign.toDto();
         } catch (Exception e) {
             throw new EntityFailedToSaveException(campaign);
         }
@@ -67,7 +57,7 @@ public class CampaignService implements ICampaignService {
                     .orElseThrow(() -> new EntityNotFoundException(campaignId));
 
             campaignRepo.deleteById(campaignId);
-            return mapToDto(campaignToDelete);
+            return campaignToDelete.toDto();
         } catch (Exception e) {
             throw new EntityFailedToDeleteException(campaignId);
         }
@@ -77,7 +67,7 @@ public class CampaignService implements ICampaignService {
     public CampaignDto updateCampaign(Campaign campaign) {
         try {
             Campaign updatedCampaign = campaignRepo.save(campaign);
-            return mapToDto(updatedCampaign);
+            return updatedCampaign.toDto();
         } catch (Exception e) {
             throw new EntityFailedToSaveException(campaign);
         }

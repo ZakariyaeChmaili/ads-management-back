@@ -1,6 +1,7 @@
 package com.virtuocode.adsmanagementback.entities;
 
 
+import com.virtuocode.adsmanagementback.dto.AdDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -28,4 +29,10 @@ public class Ad {
     @ManyToOne
     @JoinColumn(name = "compaign_id")
     private Campaign campaign;
+
+
+    @Transient
+    public AdDto toDto(){
+        return new AdDto(this);
+    }
 }

@@ -1,5 +1,7 @@
 package com.virtuocode.adsmanagementback.entities;
 
+import com.virtuocode.adsmanagementback.dto.CampaignDto;
+import com.virtuocode.adsmanagementback.dto.PlatformCampaignDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -20,10 +22,15 @@ public class PlatformCampaign {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "platform_id")
-    private Platform platform_id;
+    private Platform platform;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "campaign_id")
-    private Campaign campaign_id;
+    private Campaign campaign;
+
+    @Transient
+    public PlatformCampaignDto toDto(){
+        return new PlatformCampaignDto(this);
+    };
 }

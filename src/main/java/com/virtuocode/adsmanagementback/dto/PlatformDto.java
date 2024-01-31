@@ -1,5 +1,6 @@
 package com.virtuocode.adsmanagementback.dto;
 
+import com.virtuocode.adsmanagementback.entities.Platform;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,4 +19,11 @@ public class PlatformDto {
     private String image;
 
     private String url;
+
+    public PlatformDto(Platform platform) {
+        this.id = platform.getId();
+        this.name = platform.getName();
+        this.image = platform.getImage();
+        this.url = platform.getUrl();
+    }
 }

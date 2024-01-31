@@ -21,21 +21,12 @@ public class PartnerService implements IPartnerService {
         this.partnerRepo = partnerRepo;
     }
 
-    private PartnerDto mapToDto(Partner partner) {
-        return PartnerDto.builder()
-                .id(partner.getId())
-                .name(partner.getName())
-                .url(partner.getUrl())
-                .logo(partner.getLogo())
-                .user(partner.getUser())
-                .build();
-    }
 
     @Override
     public PartnerDto addParter(Partner partner) {
         try {
             Partner savedPartner = this.partnerRepo.save(partner);
-            return mapToDto(savedPartner);
+            return savedPartner.toDto();
         } catch (Exception e) {
             throw new EntityFailedToSaveException(partner);
         }
@@ -45,13 +36,13 @@ public class PartnerService implements IPartnerService {
     @Override
     public List<PartnerDto> getPartners() {
         List<Partner> partners = this.partnerRepo.findAll();
-        return partners.stream().map((this::mapToDto)).collect(Collectors.toList());
+        return partners.stream().map((Partner::toDto)).collect(Collectors.toList());
     }
 
     @Override
     public PartnerDto getPartner(Long partnerId) {
         return this.partnerRepo.findById(partnerId)
-                .map(this::mapToDto)
+                .map(Partner::toDto)
                 .orElseThrow(() -> new EntityNotFoundException(partnerId));
     }
 
@@ -60,7 +51,7 @@ public class PartnerService implements IPartnerService {
         Partner partner = this.partnerRepo.findById(partnerId).orElseThrow(() -> new EntityNotFoundException(partnerId));
         try {
             this.partnerRepo.delete(partner);
-            return mapToDto(partner);
+            return partner.toDto();
 
         } catch (Exception e) {
             throw new EntityFailedToDeleteException(partner);
@@ -80,7 +71,7 @@ public class PartnerService implements IPartnerService {
         try {
 
             Partner updatedPartner = this.partnerRepo.save(existingPartner);
-            return mapToDto(updatedPartner);
+            return updatedPartner.toDto();
 
         } catch (Exception e) {
             throw new EntityFailedToSaveException(partner);

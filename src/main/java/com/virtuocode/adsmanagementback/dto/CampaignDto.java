@@ -1,5 +1,6 @@
 package com.virtuocode.adsmanagementback.dto;
 
+import com.virtuocode.adsmanagementback.entities.Campaign;
 import com.virtuocode.adsmanagementback.entities.Partner;
 import com.virtuocode.adsmanagementback.shared.status.Status;
 import jakarta.persistence.JoinColumn;
@@ -24,4 +25,12 @@ public class CampaignDto {
 
 
     private Partner partner;
+
+    public CampaignDto(Campaign campaign) {
+        this.id = campaign.getId();
+        this.title = campaign.getTitle();
+        this.description = campaign.getDescription();
+        this.status = campaign.getStatus();
+        this.partner = campaign.getPartner();
+    }
 }

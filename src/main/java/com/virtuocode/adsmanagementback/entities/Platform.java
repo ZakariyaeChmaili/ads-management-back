@@ -1,5 +1,7 @@
 package com.virtuocode.adsmanagementback.entities;
 
+import com.virtuocode.adsmanagementback.dto.CampaignDto;
+import com.virtuocode.adsmanagementback.dto.PlatformDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -27,7 +29,10 @@ public class Platform {
 
     private String url;
 
-
+    @Transient
+    public PlatformDto toDto(){
+        return new PlatformDto(this);
+    };
 
 
 }

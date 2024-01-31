@@ -1,4 +1,6 @@
 package com.virtuocode.adsmanagementback.entities;
+import com.virtuocode.adsmanagementback.dto.CampaignDto;
+import com.virtuocode.adsmanagementback.dto.PartnerDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -26,5 +28,8 @@ public class Partner {
     @JoinColumn(name = "user_id",nullable = false)
     private User user;
 
-
+    @Transient
+    public PartnerDto toDto(){
+        return new PartnerDto(this);
+    };
 }

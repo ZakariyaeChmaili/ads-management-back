@@ -19,21 +19,11 @@ public class PlatformService implements IPlatformService {
     PlatformService(PlatformRepo platformRepo) {
         this.platformRepo = platformRepo;
     }
-
-    private PlatformDto mapToDto(Platform platform) {
-        return PlatformDto.builder()
-                .id(platform.getId())
-                .name(platform.getName())
-                .image(platform.getImage())
-                .url(platform.getUrl())
-                .build();
-    }
-
     @Override
     public PlatformDto addPlatform(Platform platform) {
         try {
             Platform savedPlatform = platformRepo.save(platform);
-            return mapToDto(savedPlatform);
+            return savedPlatform.toDto();
         } catch (Exception e) {
             throw new EntityFailedToSaveException(platform);
         }
@@ -46,7 +36,7 @@ public class PlatformService implements IPlatformService {
                     .orElseThrow(() -> new EntityNotFoundException(platformId));
 
             platformRepo.deleteById(platformId);
-            return mapToDto(platformToDelete);
+            return platformToDelete.toDto();
         } catch (Exception e) {
             throw new EntityFailedToDeleteException(platformId);
         }
@@ -56,7 +46,7 @@ public class PlatformService implements IPlatformService {
     public PlatformDto updatePlatform(Platform platform) {
         try {
             Platform updatedPlatform = platformRepo.save(platform);
-            return mapToDto(updatedPlatform);
+            return updatedPlatform.toDto();
         } catch (Exception e) {
             throw new EntityFailedToSaveException(platform);
         }
@@ -66,7 +56,7 @@ public class PlatformService implements IPlatformService {
     public List<PlatformDto> getPlatforms() {
             List<Platform> platforms = platformRepo.findAll();
             return platforms.stream()
-                    .map(this::mapToDto)
+                    .map(Platform::toDto)
                     .collect(Collectors.toList());
     }
 
@@ -75,7 +65,7 @@ public class PlatformService implements IPlatformService {
         try {
             Platform platform = platformRepo.findById(platformId)
                     .orElseThrow(() -> new EntityNotFoundException(platformId));
-            return mapToDto(platform);
+            return platform.toDto();
         } catch (Exception e) {
             throw new EntityNotFoundException(platformId);
         }

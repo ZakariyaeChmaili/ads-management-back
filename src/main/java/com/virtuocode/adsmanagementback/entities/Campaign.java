@@ -1,5 +1,6 @@
 package com.virtuocode.adsmanagementback.entities;
 
+import com.virtuocode.adsmanagementback.dto.CampaignDto;
 import com.virtuocode.adsmanagementback.shared.status.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -35,6 +36,12 @@ public class Campaign {
     @ManyToOne
     @JoinColumn(name = "partner_id")
     private Partner partner;
+
+
+    @Transient
+    public CampaignDto toDto(){
+        return new CampaignDto(this);
+    };
 
 
 }

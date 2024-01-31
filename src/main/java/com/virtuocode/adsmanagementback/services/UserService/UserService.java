@@ -26,19 +26,11 @@ public class UserService implements IUserService {
         this.userRepo = userRepo;
     }
 
-    private UserDto mapToDto(User user) {
-        return UserDto.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .role(user.getRole())
-                .build();
-    }
-
     public UserDto addUser(User user) {
         try {
             user.setRole(UserRole.USER);
             User savedUser = this.userRepo.save(user);
-            return mapToDto(savedUser);
+            return savedUser.toDto();
         } catch (Exception e) {
             throw new EntityFailedToSaveException(user);
         }
@@ -46,7 +38,7 @@ public class UserService implements IUserService {
 
     public List<UserDto> getUsers() {
         List<User> users = this.userRepo.findAll();
-        return users.stream().map(this::mapToDto).collect(Collectors.toList());
+        return users.stream().map(User::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -55,7 +47,7 @@ public class UserService implements IUserService {
             User userToDelete = this.userRepo.findById(userId)
                     .orElseThrow(() -> new EntityNotFoundException(userId));
             this.userRepo.delete(userToDelete);
-            return mapToDto(userToDelete);
+            return userToDelete.toDto();
         } catch (Exception e) {
             throw new EntityFailedToDeleteException(userId);
         }
@@ -70,7 +62,7 @@ public class UserService implements IUserService {
             userToUpdate.setUsername(user.getUsername());
             userToUpdate.setPassword(user.getPassword());
             User updatedUser = this.userRepo.save(userToUpdate);
-            return mapToDto(updatedUser);
+            return updatedUser.toDto();
         } catch (Exception e) {
             throw new EntityFailedToSaveException(user);
         }
@@ -80,7 +72,7 @@ public class UserService implements IUserService {
     public UserDto findUser(Long userId) {
         User user = this.userRepo.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException(userId));
-        return mapToDto(user);
+        return user.toDto();
     }
 }
 

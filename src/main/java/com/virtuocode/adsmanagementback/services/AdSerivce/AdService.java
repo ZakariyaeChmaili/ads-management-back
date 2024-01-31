@@ -21,21 +21,11 @@ public class AdService implements IAdService {
         this.adRepo = adRepo;
     }
 
-    private AdDto mapToDto(Ad ad) {
-        return AdDto.builder()
-                .id(ad.getId())
-                .title(ad.getTitle())
-                .description(ad.getDescription())
-                .imageUrl(ad.getImageUrl())
-                .campaign(ad.getCampaign())
-                .build();
-    }
-
     @Override
     public AdDto addAd(Ad ad) {
         try {
             Ad savedAd = adRepo.save(ad);
-            return mapToDto(savedAd);
+            return savedAd.toDto();
         } catch (Exception e) {
             throw new EntityFailedToSaveException(ad);
         }
@@ -48,7 +38,7 @@ public class AdService implements IAdService {
                     .orElseThrow(() -> new EntityNotFoundException(adId));
 
             adRepo.deleteById(adId);
-            return mapToDto(adToDelete);
+            return adToDelete.toDto();
         } catch (Exception e) {
             throw new EntityFailedToDeleteException(adId);
         }
@@ -58,7 +48,7 @@ public class AdService implements IAdService {
     public AdDto updateAd(Ad ad) {
         try {
             Ad updatedAd = adRepo.save(ad);
-            return mapToDto(updatedAd);
+            return updatedAd.toDto();
         } catch (Exception e) {
             throw new EntityFailedToSaveException(ad);
         }
@@ -68,7 +58,7 @@ public class AdService implements IAdService {
     public List<AdDto> getAds() {
             List<Ad> ads = adRepo.findAll();
             return ads.stream()
-                    .map(this::mapToDto)
+                    .map(Ad::toDto)
                     .collect(Collectors.toList());
     }
 
@@ -77,7 +67,7 @@ public class AdService implements IAdService {
         try {
             Ad ad = adRepo.findById(adId)
                     .orElseThrow(() -> new EntityNotFoundException(adId));
-            return mapToDto(ad);
+            return ad.toDto();
         } catch (Exception e) {
             throw new EntityNotFoundException(adId);
         }

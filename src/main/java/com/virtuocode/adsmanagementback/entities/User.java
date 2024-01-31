@@ -3,6 +3,8 @@ package com.virtuocode.adsmanagementback.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.virtuocode.adsmanagementback.dto.CampaignDto;
+import com.virtuocode.adsmanagementback.dto.UserDto;
 import com.virtuocode.adsmanagementback.shared.roles.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,5 +30,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    @Transient
+    public UserDto toDto(){
+        return new UserDto(this);
+    };
 
 }
