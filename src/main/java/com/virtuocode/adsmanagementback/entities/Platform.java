@@ -29,7 +29,6 @@ public class Platform {
 
     private String url;
 
-    @Transient
     public PlatformDto toDto(){
         return new PlatformDto(this);
     };

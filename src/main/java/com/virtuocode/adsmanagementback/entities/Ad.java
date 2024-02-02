@@ -11,6 +11,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 
 
 public class Ad {
@@ -31,7 +32,6 @@ public class Ad {
     private Campaign campaign;
 
 
-    @Transient
     public AdDto toDto(){
         return new AdDto(this);
     }

@@ -38,7 +38,6 @@ public class Campaign {
     private Partner partner;
 
 
-    @Transient
     public CampaignDto toDto(){
         return new CampaignDto(this);
     };

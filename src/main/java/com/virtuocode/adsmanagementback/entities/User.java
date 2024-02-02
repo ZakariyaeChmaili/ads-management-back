@@ -16,6 +16,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 
 public class User {
 
@@ -30,7 +31,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @Transient
     public UserDto toDto(){
         return new UserDto(this);
     };

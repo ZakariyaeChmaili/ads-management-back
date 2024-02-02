@@ -29,7 +29,6 @@ public class PlatformCampaign {
     @JoinColumn(name = "campaign_id")
     private Campaign campaign;
 
-    @Transient
     public PlatformCampaignDto toDto(){
         return new PlatformCampaignDto(this);
     };
