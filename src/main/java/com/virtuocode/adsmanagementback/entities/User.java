@@ -39,6 +39,6 @@ public class User {
 
     public UserDto toDto(){
         return new UserDto(this);
-    };
+    }
 
 }
