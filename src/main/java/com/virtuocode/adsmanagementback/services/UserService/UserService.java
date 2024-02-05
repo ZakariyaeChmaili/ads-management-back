@@ -9,6 +9,7 @@ import com.virtuocode.adsmanagementback.entities.User;
 import com.virtuocode.adsmanagementback.repositories.AdRepo;
 import com.virtuocode.adsmanagementback.repositories.UserRepo;
 import com.virtuocode.adsmanagementback.shared.roles.UserRole;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
@@ -26,7 +27,8 @@ public class UserService implements IUserService {
         this.userRepo = userRepo;
     }
 
-    public UserDto addUser(User user) {
+    public UserDto addUser(@Valid User user) {
+        System.out.println(user.getUsername());
         try {
             user.setRole(UserRole.USER);
             User savedUser = this.userRepo.save(user);
@@ -43,9 +45,9 @@ public class UserService implements IUserService {
 
     @Override
     public UserDto deleteUser(Long userId) {
-        try {
             User userToDelete = this.userRepo.findById(userId)
                     .orElseThrow(() -> new EntityNotFoundException(userId));
+        try {
             this.userRepo.delete(userToDelete);
             return userToDelete.toDto();
         } catch (Exception e) {
@@ -54,7 +56,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDto updateUser(User user) {
+    public UserDto updateUser(@Valid User user) {
         try {
             User userToUpdate = this.userRepo.findById(user.getId())
                     .orElseThrow(() -> new EntityNotFoundException(user.getId()));

@@ -31,13 +31,10 @@ public class CampaignService implements ICampaignService {
 
     @Override
     public CampaignDto getCampaign(Long campaignId) {
-        try {
             Campaign campaign = campaignRepo.findById(campaignId)
                     .orElseThrow(() -> new EntityNotFoundException(campaignId));
             return campaign.toDto();
-        } catch (Exception e) {
-            throw new EntityNotFoundException(campaignId);
-        }
+
     }
 
     @Override
@@ -52,9 +49,9 @@ public class CampaignService implements ICampaignService {
 
     @Override
     public CampaignDto deleteCampaign(Long campaignId) {
-        try {
             Campaign campaignToDelete = campaignRepo.findById(campaignId)
                     .orElseThrow(() -> new EntityNotFoundException(campaignId));
+        try {
 
             campaignRepo.deleteById(campaignId);
             return campaignToDelete.toDto();

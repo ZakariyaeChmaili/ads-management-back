@@ -16,5 +16,6 @@ public interface IAdService {
 
     List<AdDto> getAds();
 
+
     AdDto getAd(Long adId);
 }

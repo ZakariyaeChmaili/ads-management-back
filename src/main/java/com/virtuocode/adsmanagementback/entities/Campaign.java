@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Set;
 
 @Entity(name = "campaign_table")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 

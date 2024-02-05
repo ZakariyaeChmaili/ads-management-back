@@ -4,6 +4,8 @@ import com.virtuocode.adsmanagementback.dto.PlatformDto;
 import com.virtuocode.adsmanagementback.entities.Platform;
 import com.virtuocode.adsmanagementback.services.PlatformService.IPlatformService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,18 +19,22 @@ public class PlatformController {
 
     private final IPlatformService platformService;
 
-    PlatformController(IPlatformService platformService){
+    PlatformController(IPlatformService platformService) {
 
         this.platformService = platformService;
     }
+
     @PostMapping
-    public ResponseEntity<PlatformDto> addPlatform(@Valid  @RequestBody Platform platform) {
+    public ResponseEntity<PlatformDto> addPlatform(@Valid @RequestBody Platform platform) {
         PlatformDto newPlatform = platformService.addPlatform(platform);
         return new ResponseEntity<>(newPlatform, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<PlatformDto> deletePlatform(@PathVariable Long id) {
+    public ResponseEntity<PlatformDto> deletePlatform(@PathVariable
+                                                      @Positive
+                                                      @NotNull
+                                                      Long id) {
         PlatformDto deletedPlatform = platformService.deletePlatform(id);
         if (deletedPlatform != null) {
             return new ResponseEntity<>(deletedPlatform, HttpStatus.OK);
@@ -50,7 +56,10 @@ public class PlatformController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PlatformDto> getPlatform(@PathVariable Long id) {
+    public ResponseEntity<PlatformDto> getPlatform(@PathVariable
+                                                   @Positive
+                                                   @NotNull
+                                                   Long id) {
         PlatformDto platform = platformService.getPlatform(id);
         if (platform != null) {
             return new ResponseEntity<>(platform, HttpStatus.OK);

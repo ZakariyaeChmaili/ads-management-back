@@ -5,6 +5,8 @@ import com.virtuocode.adsmanagementback.entities.Partner;
 import com.virtuocode.adsmanagementback.services.PartnerService.IPartnerService;
 import com.virtuocode.adsmanagementback.services.PartnerService.PartnerService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +31,10 @@ public class PartnerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PartnerDto> getPartner(@PathVariable Long id) {
+    public ResponseEntity<PartnerDto> getPartner(@PathVariable
+                                                 @Positive
+                                                 @NotNull
+                                                 Long id) {
         PartnerDto partner = partnerService.getPartner(id);
         if (partner != null) {
             return new ResponseEntity<>(partner, HttpStatus.OK);
@@ -46,7 +51,10 @@ public class PartnerController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<PartnerDto> deletePartner(@PathVariable Long id) {
+    public ResponseEntity<PartnerDto> deletePartner(@PathVariable
+                                                    @Positive
+                                                    @NotNull
+                                                    Long id) {
         PartnerDto partner = partnerService.deletePartner(id);
         return new ResponseEntity<>(partner, HttpStatus.OK);
 
@@ -56,7 +64,7 @@ public class PartnerController {
     @PutMapping
     public ResponseEntity<PartnerDto> updateParnter(@Valid @RequestBody Partner partner) {
         PartnerDto partnerDto = this.partnerService.updatePartner(partner);
-        return new ResponseEntity<>(partnerDto,HttpStatus.OK);
+        return new ResponseEntity<>(partnerDto, HttpStatus.OK);
 
     }
 

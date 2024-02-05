@@ -8,7 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity(name = "ad_table")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

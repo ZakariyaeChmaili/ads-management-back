@@ -4,6 +4,8 @@ import com.virtuocode.adsmanagementback.dto.CampaignDto;
 import com.virtuocode.adsmanagementback.entities.Campaign;
 import com.virtuocode.adsmanagementback.services.CampaignService.CampaignService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +30,10 @@ public class CampaignController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CampaignDto> getCampaign(@PathVariable Long id) {
+    public ResponseEntity<CampaignDto> getCampaign(@PathVariable
+                                                       @Positive
+                                                       @NotNull
+                                                       Long id) {
         CampaignDto campaign = campaignService.getCampaign(id);
         if (campaign != null) {
             return new ResponseEntity<>(campaign, HttpStatus.OK);
@@ -44,7 +49,10 @@ public class CampaignController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CampaignDto> deleteCampaign(@PathVariable Long id) {
+    public ResponseEntity<CampaignDto> deleteCampaign(@PathVariable
+                                                      @Positive
+                                                      @NotNull
+                                                      Long id) {
         CampaignDto deletedCampaign = campaignService.deleteCampaign(id);
         if (deletedCampaign != null) {
             return new ResponseEntity<>(deletedCampaign, HttpStatus.OK);

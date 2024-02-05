@@ -31,9 +31,9 @@ public class PlatformService implements IPlatformService {
 
     @Override
     public PlatformDto deletePlatform(Long platformId) {
-        try {
             Platform platformToDelete = platformRepo.findById(platformId)
                     .orElseThrow(() -> new EntityNotFoundException(platformId));
+        try {
 
             platformRepo.deleteById(platformId);
             return platformToDelete.toDto();
@@ -62,12 +62,9 @@ public class PlatformService implements IPlatformService {
 
     @Override
     public PlatformDto getPlatform(Long platformId) {
-        try {
             Platform platform = platformRepo.findById(platformId)
                     .orElseThrow(() -> new EntityNotFoundException(platformId));
             return platform.toDto();
-        } catch (Exception e) {
-            throw new EntityNotFoundException(platformId);
-        }
+
     }
 }

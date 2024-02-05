@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 @Service
 
 public class AdService implements IAdService {
@@ -34,9 +35,9 @@ public class AdService implements IAdService {
 
     @Override
     public AdDto deleteAd(Long adId) {
+        Ad adToDelete = adRepo.findById(adId)
+                .orElseThrow(() -> new EntityNotFoundException(adId));
         try {
-            Ad adToDelete = adRepo.findById(adId)
-                    .orElseThrow(() -> new EntityNotFoundException(adId));
 
             adRepo.deleteById(adId);
             return adToDelete.toDto();
@@ -57,20 +58,17 @@ public class AdService implements IAdService {
 
     @Override
     public List<AdDto> getAds() {
-            List<Ad> ads = adRepo.findAll();
-            return ads.stream()
-                    .map(Ad::toDto)
-                    .collect(Collectors.toList());
+        List<Ad> ads = adRepo.findAll();
+        return ads.stream()
+                .map(Ad::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public AdDto getAd(Long adId) {
-        try {
-            Ad ad = adRepo.findById(adId)
-                    .orElseThrow(() -> new EntityNotFoundException(adId));
-            return ad.toDto();
-        } catch (Exception e) {
-            throw new EntityNotFoundException(adId);
-        }
+        Ad ad = adRepo.findById(adId)
+                .orElseThrow(() -> new EntityNotFoundException(adId));
+        return ad.toDto();
+
     }
 }

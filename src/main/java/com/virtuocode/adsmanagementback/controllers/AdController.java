@@ -4,6 +4,8 @@ import com.virtuocode.adsmanagementback.dto.AdDto;
 import com.virtuocode.adsmanagementback.entities.Ad;
 import com.virtuocode.adsmanagementback.services.AdSerivce.IAdService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +18,7 @@ public class AdController {
 
     private final IAdService adService;
 
-    AdController(IAdService adService){
+    AdController(IAdService adService) {
         this.adService = adService;
     }
 
@@ -27,7 +29,10 @@ public class AdController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<AdDto> deleteAd(@PathVariable Long id) {
+    public ResponseEntity<AdDto> deleteAd(@PathVariable
+                                          @Positive
+                                          @NotNull
+                                          Long id) {
         AdDto deletedAd = adService.deleteAd(id);
         if (deletedAd != null) {
             return new ResponseEntity<>(deletedAd, HttpStatus.OK);
@@ -37,7 +42,10 @@ public class AdController {
     }
 
     @PutMapping
-    public ResponseEntity<AdDto> updateAd(@Valid @RequestBody Ad ad) {
+    public ResponseEntity<AdDto> updateAd(@Valid @RequestBody
+                                              @Positive
+                                              @NotNull
+                                              Ad ad) {
         AdDto updatedAd = adService.updateAd(ad);
         return new ResponseEntity<>(updatedAd, HttpStatus.OK);
     }
@@ -49,7 +57,10 @@ public class AdController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AdDto> getAd(@PathVariable Long id) {
+    public ResponseEntity<AdDto> getAd(@PathVariable
+                                           @Positive
+                                           @NotNull
+                                           Long id) {
         AdDto ad = adService.getAd(id);
         if (ad != null) {
             return new ResponseEntity<>(ad, HttpStatus.OK);
