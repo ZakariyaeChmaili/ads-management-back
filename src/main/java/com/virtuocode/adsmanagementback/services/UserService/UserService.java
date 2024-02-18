@@ -28,7 +28,6 @@ public class UserService implements IUserService {
     }
 
     public UserDto addUser(@Valid User user) {
-        System.out.println(user.getUsername());
         try {
             user.setRole(UserRole.USER);
             User savedUser = this.userRepo.save(user);
@@ -45,8 +44,8 @@ public class UserService implements IUserService {
 
     @Override
     public UserDto deleteUser(Long userId) {
-            User userToDelete = this.userRepo.findById(userId)
-                    .orElseThrow(() -> new EntityNotFoundException(userId));
+        User userToDelete = this.userRepo.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException(userId));
         try {
             this.userRepo.delete(userToDelete);
             return userToDelete.toDto();
@@ -57,24 +56,23 @@ public class UserService implements IUserService {
 
     @Override
     public UserDto updateUser(@Valid User user) {
-        try {
-            User userToUpdate = this.userRepo.findById(user.getId())
+            this.userRepo.findById(user.getId())
                     .orElseThrow(() -> new EntityNotFoundException(user.getId()));
-
-            userToUpdate.setUsername(user.getUsername());
-            userToUpdate.setPassword(user.getPassword());
-            User updatedUser = this.userRepo.save(userToUpdate);
+        try {
+            User updatedUser = this.userRepo.save(user);
             return updatedUser.toDto();
         } catch (Exception e) {
             throw new EntityFailedToSaveException(user);
         }
     }
 
+
     @Override
     public UserDto findUser(Long userId) {
-        User user = this.userRepo.findById(userId)
+        return this.userRepo.findById(userId)
+                .map(User::toDto)
                 .orElseThrow(() -> new EntityNotFoundException(userId));
-        return user.toDto();
     }
+
 }
 

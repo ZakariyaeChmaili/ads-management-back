@@ -14,7 +14,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-
 public class AdService implements IAdService {
 
     private final AdRepo adRepo;
@@ -38,7 +37,6 @@ public class AdService implements IAdService {
         Ad adToDelete = adRepo.findById(adId)
                 .orElseThrow(() -> new EntityNotFoundException(adId));
         try {
-
             adRepo.deleteById(adId);
             return adToDelete.toDto();
         } catch (Exception e) {
@@ -48,6 +46,8 @@ public class AdService implements IAdService {
 
     @Override
     public AdDto updateAd(Ad ad) {
+        adRepo.findById(ad.getId())
+                .orElseThrow(() -> new EntityNotFoundException(ad.getId()));
         try {
             Ad updatedAd = adRepo.save(ad);
             return updatedAd.toDto();

@@ -32,10 +32,13 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
+
 
 
     public UserDto toDto(){
         return new UserDto(this);
-    };
+    }
 
 }

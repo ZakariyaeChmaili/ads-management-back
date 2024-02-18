@@ -62,6 +62,8 @@ public class CampaignService implements ICampaignService {
 
     @Override
     public CampaignDto updateCampaign(Campaign campaign) {
+        campaignRepo.findById(campaign.getId())
+                .orElseThrow(() -> new EntityNotFoundException(campaign.getId()));
         try {
             Campaign updatedCampaign = campaignRepo.save(campaign);
             return updatedCampaign.toDto();
