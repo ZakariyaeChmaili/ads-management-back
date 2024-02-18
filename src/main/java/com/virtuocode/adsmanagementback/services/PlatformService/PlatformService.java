@@ -44,6 +44,8 @@ public class PlatformService implements IPlatformService {
 
     @Override
     public PlatformDto updatePlatform(Platform platform) {
+        platformRepo.findById(platform.getId())
+                .orElseThrow(() -> new EntityNotFoundException(platform.getId()));
         try {
             Platform updatedPlatform = platformRepo.save(platform);
             return updatedPlatform.toDto();

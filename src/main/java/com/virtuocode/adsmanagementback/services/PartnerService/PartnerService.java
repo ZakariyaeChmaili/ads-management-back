@@ -62,15 +62,11 @@ public class PartnerService implements IPartnerService {
 
     @Override
     public PartnerDto updatePartner(Partner partner) {
-        Partner existingPartner = this.partnerRepo.findById(partner.getId())
+        this.partnerRepo.findById(partner.getId())
                 .orElseThrow(() -> new EntityNotFoundException(partner.getId()));
-        existingPartner.setName(partner.getName());
-        existingPartner.setUrl(partner.getUrl());
-        existingPartner.setLogo(partner.getLogo());
-        existingPartner.setUser(partner.getUser());
         try {
 
-            Partner updatedPartner = this.partnerRepo.save(existingPartner);
+            Partner updatedPartner = this.partnerRepo.save(partner);
             return updatedPartner.toDto();
 
         } catch (Exception e) {
