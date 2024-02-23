@@ -26,4 +26,10 @@ public class UserDto {
         this.username = user.getUsername();
         this.role = user.getRole();
     }
+
+
+    public User toEntity(){
+        return new User(this);
+    }
+
 }
