@@ -70,4 +70,26 @@ public class GlobalExceptionHandler {
     }
 
 
+    @ExceptionHandler(WrongCredentialException.class)
+    @ResponseStatus(code = HttpStatus.FORBIDDEN)
+    public Map<String, Object> handleWrongCredentialException(WrongCredentialException e) {
+        Map<String, Object> res = new LinkedHashMap<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        res.put("timestamp", LocalDateTime.now().format(formatter));
+        res.put("message", e.getMessage());
+        return res;
+    }
+
+
+    @ExceptionHandler(InvalidOrMissingTokenException.class)
+    @ResponseStatus(code = HttpStatus.FORBIDDEN)
+    public Map<String, Object> handleInvalidOrMissingTokenException(InvalidOrMissingTokenException e) {
+        Map<String, Object> res = new LinkedHashMap<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        res.put("timestamp", LocalDateTime.now().format(formatter));
+        res.put("message", e.getMessage());
+        return res;
+    }
+
+
 }

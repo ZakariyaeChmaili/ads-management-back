@@ -16,4 +16,6 @@ public interface IUserService {
      UserDto updateUser(User user);
 
      UserDto findUser(Long userId);
+
+     void updateLastActivity(User user);
 }
