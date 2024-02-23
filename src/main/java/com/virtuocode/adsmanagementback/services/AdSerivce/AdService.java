@@ -46,8 +46,8 @@ public class AdService implements IAdService {
 
     @Override
     public AdDto updateAd(Ad ad) {
-        adRepo.findById(ad.getId())
-                .orElseThrow(() -> new EntityNotFoundException(ad.getId()));
+//        adRepo.findById(ad.getId())
+//                .orElseThrow(() -> new EntityNotFoundException(ad.getId()));
         try {
             Ad updatedAd = adRepo.save(ad);
             return updatedAd.toDto();
